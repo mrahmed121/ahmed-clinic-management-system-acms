@@ -55,3 +55,22 @@ MIT License.
 **Substantially modified by Ahmed:** Complete product rebuild — new React 18 SPA frontend (upstream is API-only); JWT + granular RBAC (8 roles); appointment conflict detection; patient visit timeline; pharmacy low-stock alerts; analytics dashboard; audit logging; Ahmed design system. Upstream's clinic domain concepts informed the design; all code is newly written.
 
 Original MIT LICENSE preserved in `LICENSE-UPSTREAM.md`.
+
+## Windows Quick Start
+
+Double-click `RUN_ACMS.bat` — handles setup automatically (see ARPOS README for details).
+To stop: `STOP_ACMS.bat`.
+
+## Manual Setup
+
+```bash
+cd backend && composer install && cp .env.example .env
+php artisan key:generate && php artisan jwt:secret
+touch database/database.sqlite
+php artisan migrate --seed
+php artisan serve --host=127.0.0.1 --port=8002
+
+cd frontend && npm install
+echo "VITE_API_BASE_URL=http://127.0.0.1:8002/api/v1" > .env
+npm run dev -- --host 127.0.0.1 --port 5175
+```
